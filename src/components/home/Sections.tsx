@@ -50,7 +50,7 @@ export function Bestsellers() {
 
 export function Categories() {
   const cats = getCategories();
-  const [achar, papad, juices, gifts] = cats;
+  const [achar, papad, juices, gifts] = cats as [typeof cats[number], typeof cats[number], typeof cats[number], typeof cats[number]];
   const Tile = ({ c, className, imgClass }: { c: (typeof cats)[number]; className?: string; imgClass?: string }) => (
     <Link to="/shop" search={{ category: c.slug }} className={cn("group relative block overflow-hidden bg-sand", className)}>
       <img src={c.image} alt="" loading="lazy" className={cn("h-full w-full object-cover transition duration-[1.4s] group-hover:scale-105", imgClass)} />
@@ -88,7 +88,7 @@ export function FeaturedStory() {
     ["Dry", "Washed and shade-dried for a full day. Water is the enemy of achar."],
     ["Pound", "Mustard, fenugreek and chilli roasted, cooled and pounded by hand."],
     ["Mature", "Sealed under oil and turned daily for three weeks before it leaves us."],
-  ];
+  ] as const;
   return (
     <section className="relative overflow-hidden bg-kokum text-ivory" aria-labelledby="feat">
       <div className="container-x grid gap-12 py-20 md:py-28 lg:grid-cols-2 lg:gap-20">
@@ -116,8 +116,8 @@ export function FeaturedStory() {
             ))}
           </ol>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <button onClick={() => { add(p.id, p.variants[0].id); toast.success("Kairi Loncha added"); }} className="bg-ivory px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-ink hover:bg-mango">
-              Add to basket · {formatPrice(p.variants[0].price)}
+            <button onClick={() => { add(p.id, p.variants[0]!.id); toast.success("Kairi Loncha added"); }} className="bg-ivory px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-ink hover:bg-mango">
+              Add to basket · {formatPrice(p.variants[0]!.price)}
             </button>
             <Link to="/products/$slug" params={{ slug: p.slug }} className="text-sm font-semibold underline-offset-4 hover:underline">Read the full recipe story</Link>
           </div>
@@ -187,7 +187,7 @@ export function Kitchen() {
 
 export function Gifts() {
   const gifts = products.filter((p) => p.category === "gifts");
-  const [feat, ...rest] = gifts;
+  const feat = gifts[0]!; const rest = gifts.slice(1);
   return (
     <section className="container-x py-20 md:py-32" aria-labelledby="gifts">
       <SectionHead index="06" eyebrow="Gifting" title={<span id="gifts">Send a taste of <em className="text-primary">home</em></span>} intro="Curated boxes, wrapped by hand, with a note in your words." />
@@ -201,7 +201,7 @@ export function Gifts() {
                 <h3 className="mt-1 font-serif text-3xl text-ink">{feat.name}</h3>
                 <p className="text-sm text-muted-foreground">{feat.descriptor}</p>
               </div>
-              <p className="font-semibold">{formatPrice(feat.variants[0].price)}</p>
+              <p className="font-semibold">{formatPrice(feat.variants[0]!.price)}</p>
             </div>
           </Link>
         </Reveal>
@@ -213,7 +213,7 @@ export function Gifts() {
                 <div className="flex flex-1 flex-col">
                   <h3 className="font-serif text-2xl text-ink group-hover:text-primary">{g.name}</h3>
                   <p className="text-sm text-muted-foreground">{g.descriptor}</p>
-                  <p className="mt-auto text-sm font-semibold">{formatPrice(g.variants[0].price)}</p>
+                  <p className="mt-auto text-sm font-semibold">{formatPrice(g.variants[0]!.price)}</p>
                 </div>
                 <ArrowUpRight className="h-5 w-5 shrink-0 text-muted-foreground transition group-hover:text-primary" />
               </Link>

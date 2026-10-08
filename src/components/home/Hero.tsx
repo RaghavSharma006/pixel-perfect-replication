@@ -68,7 +68,7 @@ export function Hero() {
             </Link>
           </motion.div>
           <motion.dl {...fade(0.5)} className="mt-12 grid max-w-md grid-cols-3 gap-4 border-t border-border pt-6">
-            {[["40", "jars per batch"], ["3", "generations"], ["0", "preservatives"]].map(([n, l]) => (
+            {([["40", "jars per batch"], ["3", "generations"], ["0", "preservatives"]] as const).map(([n, l]) => (
               <div key={l}>
                 <dt className="sr-only">{l}</dt>
                 <dd className="font-serif text-3xl text-ink">{n}</dd>
