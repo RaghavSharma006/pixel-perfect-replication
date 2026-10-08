@@ -11,7 +11,7 @@ export function ProductCard({ product, className, large }: { product: Product; c
   const add = useShop((s) => s.add);
   const wish = useShop((s) => s.wishlist.includes(product.id));
   const toggleWish = useShop((s) => s.toggleWish);
-  const v = product.variants[0];
+  const v = product.variants[0]!;
 
   return (
     <article className={cn("group relative flex flex-col", className)}>
